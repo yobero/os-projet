@@ -18,7 +18,11 @@
 
 int main(int argv, char** argc)
 {
-	
+	if(argv<=1)
+	{
+		perror("ERREUR : Il faut au minimum un argument dans la fonction\n");
+		exit(EXIT_FAILURE);
+	}
 	
 	return 1;
 }
