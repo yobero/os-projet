@@ -24,6 +24,33 @@ int main(int argv, char** argc)
 		exit(EXIT_FAILURE);
 	}
 	
+	//Création de processus (1 pour chaque fichier)
+	pid_t pid[argv];
+	pid[0]=1;
+	
+	int i=1;
+	
+	while(i<argv)
+	{
+		if(pid[i-1]>0)
+		{
+			pid[i]=fork();
+		}
+		else
+		{
+			///Voir pour une utilisation d'un tube et d'une section critique
+		}
+		i++;
+	}
+	
+	
+	for(i=1 ; i<argv ; i++)
+	{
+		if(pid[i]>0)
+			wait(&pid[i]);
+		else exit(0); //valeur temporaire
+	}
+	
+	
 	return 1;
 }
-
