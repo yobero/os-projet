@@ -15,41 +15,41 @@
 /** n processus  ==> n fichier en entrée
  *  m threads
  * */
+ 
+ //Création de plusieurs processus fils ayant comme père Directeur
+ void creationChefEquipe(int n,pid_t pid[n])
+ {
+	 int i=0;
+	 do
+	 {
+		 pid[i] = fork();
+		 i++;
+	 }
+	 while(i<n && pid[i-1] > 0);
+ }
 
 int main(int argv, char** argc)
 {
-	if(argv<=1)
+	//condition requis pour continuer
+	if(argv<2)
 	{
-		perror("ERREUR : Il faut au minimum un argument dans la fonction\n");
+		perror("ERREUR : pas d'argument en entrée\n");
+		exit(EXIT_FAILURE);
+	}
+	if(argv<3)
+	{
+		perror("ERREUR : pas de fichier en entrée\n");
 		exit(EXIT_FAILURE);
 	}
 	
-	//Création de processus (1 pour chaque fichier)
-	pid_t pid[argv];
-	pid[0]=1;
+	//création de processus chefEquipe (1 processus <==> 1 fichier)
+	pid_t pid[argv -2];
+	creationChefEquipe(argv-2,pid);
 	
-	int i=1;
+	//Attribution des fichiers pour les processus
 	
-	while(i<argv)
-	{
-		if(pid[i-1]>0)
-		{
-			pid[i]=fork();
-		}
-		else
-		{
-			///Voir pour une utilisation d'un tube et d'une section critique
-		}
-		i++;
-	}
-	
-	
-	for(i=1 ; i<argv ; i++)
-	{
-		if(pid[i]>0)
-			wait(&pid[i]);
-		else exit(0); //valeur temporaire
-	}
+	//Attente des resultats des processus fils
+	int max[argv-2]; //variable pour stocker les max de chaque fichier
 	
 	
 	return 1;
