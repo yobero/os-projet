@@ -1,0 +1,8 @@
+wait()
+
+	http://www.linux-france.org/article/man-fr/man2/wait-2.html
+
+les processus
+
+	https://openclassrooms.com/courses/la-programmation-systeme-en-c-sous-unix/les-processus-1
+
