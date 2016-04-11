@@ -6,3 +6,7 @@ les processus
 
 	https://openclassrooms.com/courses/la-programmation-systeme-en-c-sous-unix/les-processus-1
 
+executable de terminal
+
+	https://forum.ubuntu-fr.org/viewtopic.php?id=400079
+
