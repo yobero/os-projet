@@ -19,6 +19,7 @@ pid_t creationChefEquipe(int n)
  
 void attributionFichier() ///Revoir la fonction
 {
+	//Voir pour faire des tubes pour chaque processus fils pour assigner un fichier
 	aFaire();
 }
  
@@ -26,9 +27,15 @@ void attendreChefEquipe(int n,int max[n]) ///Seul le père appel cette fonction
 {
 	int i=0;
 	
+	void* status;
+	
 	while (i<n)
 	{
-		max[i]=wait(0);///Stocke le max de chaque fichier
+		wait(status);///Stocke le max de chaque fichier
+		if(WIFEXITED(status))
+			max[i]=WEXITSTATUS(status);
+		else print("un processus ne s'est pas terminer correctement\n");
+		
 		i++;
 	}
 }
