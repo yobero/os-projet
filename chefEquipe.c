@@ -4,7 +4,8 @@
 #define LECTURE O_RDONLY
 
 //Fonction "main" pour les processus chefEquipe
-void aFaire(char* argc)
+///La variable mode n'est pas encore apliquer dans la fonction
+void aFaire(char* argc,char* mode)
 {
 	int fichier = open(argc,LECTURE);
 	char* buf;
@@ -23,7 +24,19 @@ void aFaire(char* argc)
 		exit(0);
 	}
 	
+	int nbthread=2;
 	
+	while((*nombre/nbthread) >100)
+		nbthread++; //voir pour mettre nbthread * 2 (pour aller plus)
+		
+	//creation de nbthread thread
+	int i=0;
+	pthread_t thread[nbthread];
+	
+	while(i<nbthread){
+		//pthread_creat();
+		i++;
+	}
 	
 	
 }
