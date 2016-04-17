@@ -10,6 +10,7 @@ void aFaire(char* argc,char* mode)
 	int fichier = open(argc,LECTURE);
 	char* buf;
 	char* tbuf;
+	//Boucle infini avec ce do while
 	do{
 		read(fichier,tbuf,1);
 		buf = buf + *tbuf;
