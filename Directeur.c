@@ -17,13 +17,13 @@ pid_t creationChefEquipe(int n)
 	 return pid;
  }
  
-void attributionFichier() ///Revoir la fonction
+void attributionFichier(int Fichier,char* operation) ///Revoir la fonction
 {
 	//Voir pour faire des tubes pour chaque processus fils pour assigner un fichier
 	aFaire();
 }
  
-void attendreChefEquipe(int n,int max[n]) ///Seul le père appel cette fonction
+void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette fonction
 {
 	int i=0;
 	
@@ -34,7 +34,7 @@ void attendreChefEquipe(int n,int max[n]) ///Seul le père appel cette fonction
 		wait(status);///Stocke le max de chaque fichier
 		if(WIFEXITED(status))
 			max[i]=WEXITSTATUS(status);
-		else print("un processus ne s'est pas terminer correctement\n");
+		else printf("un processus ne s'est pas terminer correctement\n");
 		
 		i++;
 	}
@@ -53,6 +53,8 @@ int main(int argv, char** argc)
 		perror("ERREUR : pas de fichier en entrée\n");
 		exit(EXIT_FAILURE);
 	}
+	//Création des tubes anonymes pour la communication entre les processus fils
+	
 	
 	//création de processus chefEquipe (1 processus <==> 1 fichier)
 	pid_t pid;
@@ -62,12 +64,12 @@ int main(int argv, char** argc)
 	///Utilisation du exit pour arrêter les processus fils
 	if(pid==0)///Si VRAI alors on est dans un processus fils
 	{
-		attributionFichier();
+		attributionFichier(argv-2,argc[1]); //argv - "leNomDuProgramme" - "CodeOperation"
 	}
 	
 	
 	//Attente des resultats des processus fils
-	int max[argv-2]; ///variable pour stocker les max de chaque fichier
+	double max[argv-2]; ///variable pour stocker les max de chaque fichier
 	attendreChefEquipe(argv-2,max);
 	
 	return 1;
