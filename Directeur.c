@@ -33,7 +33,7 @@ void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette foncti
 		wait(status);///Stocke le max de chaque fichier
 		if(WIFEXITED(status))
 			affichageValeur(WEXITSTATUS(status));
-			//max[i]=WEXITSTATUS(status);
+			//max[i]=WEXITSTATUS(&status);
 		else printf("un processus ne s'est pas terminer correctement\n");
 		
 		i++;
@@ -76,5 +76,5 @@ int main(int argv, char** argc)
 		attendreChefEquipe(argv-2,max);
 	}
 	
-	return 1;
+	return EXIT_SUCCESS;
 }
