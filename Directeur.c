@@ -17,6 +17,11 @@ pid_t creationChefEquipe(int n)
 	 return pid;
  }
  
+ void affichageValeur(int max)
+ {
+	 printf("%d\n",max);
+ }
+ 
 void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette fonction
 {
 	int i=0;
@@ -27,7 +32,8 @@ void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette foncti
 	{
 		wait(status);///Stocke le max de chaque fichier
 		if(WIFEXITED(status))
-			max[i]=WEXITSTATUS(status);
+			affichageValeur(WEXITSTATUS(status));
+			//max[i]=WEXITSTATUS(status);
 		else printf("un processus ne s'est pas terminer correctement\n");
 		
 		i++;
