@@ -17,20 +17,20 @@ pid_t creationChefEquipe(int n)
 	 return pid;
  }
  
- void affichageValeur(int max)
+ void affichageValeur(float max)
  {
-	 printf("%d\n",max);
+	 printf("%f\n",max);
  }
  
 void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette fonction
 {
 	int i=0;
 	
-	void* status;
+	float status;
 	
 	while (i<n)
 	{
-		wait(status);///Stocke le max de chaque fichier
+		wait((void*)&status);///Stocke le max de chaque fichier
 		if(WIFEXITED(status))
 			affichageValeur(WEXITSTATUS(status));
 			//max[i]=WEXITSTATUS(&status);
