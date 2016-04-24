@@ -5,7 +5,7 @@
  * */
  
  //Création de plusieurs processus fils ayant comme père Directeur
-pid_t creationChefEquipe(int n)
+pid_t creationChefEquipe(int n,int* f)
 {
 	 int i=0;
 	 pid_t pid=1;
@@ -14,6 +14,7 @@ pid_t creationChefEquipe(int n)
 		 pid = fork();
 		 i++;
 	 }
+	 *f=i-1;
 	 return pid;
  }
  
@@ -26,15 +27,13 @@ void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette foncti
 {
 	int i=0;
 	
-	float status;
+	void* status;
 	
 	while (i<n)
 	{
-		wait((void*)&status);///Stocke le max de chaque fichier
-		if(WIFEXITED(status))
-			affichageValeur(WEXITSTATUS(status));
-			//max[i]=WEXITSTATUS(&status);
-		else printf("un processus ne s'est pas terminer correctement\n");
+		wait(status);///Stocke le max de chaque fichier
+		if(!WIFEXITED(status))
+			printf("un processus ne s'est pas terminer correctement\n");
 		
 		i++;
 	}
@@ -42,6 +41,8 @@ void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette foncti
 
 int main(int argv, char** argc)
 {
+	printf("%s\n",argc[1]);
+	
 	//condition requis pour continuer
 	if(argv<2)
 	{
@@ -53,11 +54,18 @@ int main(int argv, char** argc)
 		perror("ERREUR : pas de fichier en entrée\n");
 		exit(EXIT_FAILURE);
 	}
+	///Rentre même avec argc[1] == "min";
+	/*if(argc[1] != "min" && argc[1] != "max" && argc[1] != "avg" && argc[1] != "sum" && argc[1] != "odd")
+	{
+		perror("ERREUR : le code opération n'est pas valide\n");
+		exit(EXIT_FAILURE);
+	}*/
 	int c=2;
+	int* f=malloc(sizeof(int));
 	
 	//création de processus chefEquipe (1 processus <==> 1 fichier)
 	pid_t pid;
-	pid = creationChefEquipe(argv-2);
+	pid = creationChefEquipe(argv-2,f);
 	
 	//Attribution des fichiers pour les processus (seul les processus fils font cette étape)
 	///Utilisation du exit pour arrêter les processus fils
