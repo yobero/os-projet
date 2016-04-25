@@ -23,7 +23,7 @@ pid_t creationChefEquipe(int n,int* f)
 	 printf("%f\n",max);
  }
  
-void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette fonction
+void attendreChefEquipe(int n,float max[n]) ///Seul le père appel cette fonction
 {
 	int i=0;
 	
@@ -34,6 +34,7 @@ void attendreChefEquipe(int n,double max[n]) ///Seul le père appel cette foncti
 		wait(status);///Stocke le max de chaque fichier
 		if(!WIFEXITED(status))
 			printf("un processus ne s'est pas terminer correctement\n");
+			else printf("%d\n",WEXITSTATUS(status) );
 		
 		i++;
 	}
@@ -55,7 +56,8 @@ int main(int argv, char** argc)
 		exit(EXIT_FAILURE);
 	}
 	///Rentre même avec argc[1] == "min";
-	/*if(argc[1] != "min" && argc[1] != "max" && argc[1] != "avg" && argc[1] != "sum" && argc[1] != "odd")
+	///Faire une fonction de comparaison de deux caractères.
+	/*if(!strcmp(argc[1],"min") && !strcmp(argc[1],"max") && !strcmp(argc[1],"avg") && !strcmp(argc[1],"sum") && !strcmp(argc[1],"odd"))
 	{
 		perror("ERREUR : le code opération n'est pas valide\n");
 		exit(EXIT_FAILURE);
@@ -70,17 +72,12 @@ int main(int argv, char** argc)
 	//Attribution des fichiers pour les processus (seul les processus fils font cette étape)
 	///Utilisation du exit pour arrêter les processus fils
 	if(pid==0)///Si VRAI alors on est dans un processus fils
-	{
-		//boucle infini a partir de là
-		aFaire(argc[c],argc[1]);
-		c++;
-		
-	}
-	
+		aFaire(argc[*f],argc[1]);
+	free(f);
 	
 	//Attente des resultats des processus fils
 	if(pid) {
-		double max[argv-2]; ///variable pour stocker les max de chaque fichier
+		float max[argv-2]; ///variable pour stocker les max de chaque fichier
 		attendreChefEquipe(argv-2,max);
 	}
 	
