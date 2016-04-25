@@ -9,6 +9,7 @@ pid_t creationChefEquipe(int n,int* f)
 {
 	 int i=0;
 	 pid_t pid=1;
+	 *f=2;
 	 while(i<n && pid>0)
 	 {
 		 pid = fork();
@@ -41,9 +42,7 @@ void attendreChefEquipe(int n,float max[n]) ///Seul le père appel cette fonctio
 }
 
 int main(int argv, char** argc)
-{
-	printf("%s\n",argc[1]);
-	
+{	
 	//condition requis pour continuer
 	if(argv<2)
 	{

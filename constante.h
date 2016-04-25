@@ -16,3 +16,4 @@
 #include <string.h>
 
 //constante
+#define VIDE 2 //si un fichier est vide

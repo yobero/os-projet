@@ -8,23 +8,29 @@
 void aFaire(char* argc,char* mode)
 {
 	int fichier = open(argc,LECTURE);
-	char* buf;
-	char* tbuf;
+	char* tbuf=malloc(sizeof(char));
 	
-	do{
-		read(fichier,tbuf,1);
-		*buf=*buf+tbuf[0];
+	int t=read(fichier,tbuf,1);
+	if(t==0)
+	{
+		free(tbuf);
+		close(fichier);
+		exit(VIDE);
 	}
-	while(*tbuf!='\0' || *tbuf!='\n');	
 	
-	int* nombre=malloc(sizeof(int));
-	nombre=(int*)buf;
+	char* buf=(char*)malloc(sizeof(char));
 	
+	while(*tbuf != '\0')
+	{
+		buf=strcat(buf,tbuf);
+		read(fichier,tbuf,1);
+	}
+	int nombre=atoi(buf);
 	///
 	
 	int nbthread=1;
-	while(*nombre/nbthread >100)
-		thread++;
+	while(nombre/nbthread >100)
+		nbthread++;
 		
 	int i=0;
 	
@@ -35,5 +41,5 @@ void aFaire(char* argc,char* mode)
 	}
 	
 	close(fichier);
-	exit(1);
+	exit(EXIT_SUCCESS);
 }
