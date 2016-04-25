@@ -20,21 +20,20 @@ void aFaire(char* argc,char* mode)
 	
 	char* buf=(char*)malloc(sizeof(char));
 	
-	while(*tbuf != '\0')
+	while(*tbuf != '\n')
 	{
 		buf=strcat(buf,tbuf);
 		read(fichier,tbuf,1);
 	}
 	int nombre=atoi(buf);
-	///
 	
 	int nbthread=1;
 	while(nombre/nbthread >100)
 		nbthread++;
-		
-	int i=0;
 	
 	//Création des threads
+	
+	int i=0;
 	while(i<nbthread) {
 		
 		i++;

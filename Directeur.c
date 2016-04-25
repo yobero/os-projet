@@ -7,10 +7,9 @@
  //Création de plusieurs processus fils ayant comme père Directeur
 pid_t creationChefEquipe(int n,int* f)
 {
-	 int i=0;
+	 int i=2;
 	 pid_t pid=1;
-	 *f=2;
-	 while(i<n && pid>0)
+	 while(i<n+2 && pid>0)
 	 {
 		 pid = fork();
 		 i++;
@@ -19,30 +18,25 @@ pid_t creationChefEquipe(int n,int* f)
 	 return pid;
  }
  
- void affichageValeur(float max)
- {
-	 printf("%f\n",max);
- }
- 
 void attendreChefEquipe(int n,float max[n]) ///Seul le père appel cette fonction
 {
 	int i=0;
 	
-	void* status;
+	int status;
 	
 	while (i<n)
 	{
-		wait(status);///Stocke le max de chaque fichier
+		wait(&status);///Stocke le max de chaque fichier
 		if(!WIFEXITED(status))
 			printf("un processus ne s'est pas terminer correctement\n");
-			else printf("%d\n",WEXITSTATUS(status) );
+			else printf("%d\n",WEXITSTATUS(status));
 		
 		i++;
 	}
 }
 
 int main(int argv, char** argc)
-{	
+{
 	//condition requis pour continuer
 	if(argv<2)
 	{
@@ -61,7 +55,7 @@ int main(int argv, char** argc)
 		perror("ERREUR : le code opération n'est pas valide\n");
 		exit(EXIT_FAILURE);
 	}*/
-	int c=2;
+	
 	int* f=malloc(sizeof(int));
 	
 	//création de processus chefEquipe (1 processus <==> 1 fichier)
