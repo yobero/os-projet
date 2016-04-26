@@ -6,31 +6,31 @@
 //Fonction "main" pour les processus chefEquipe
 ///La variable mode n'est pas encore apliquer dans la fonction
 
-float min(){
+float minimal(){
 	
 }
 
-float max(){
+float maximal(){
 	
 }
 
-float avg(){
+float moyenne(){
 	
 }
 
-float sum(){
+float somme(){
 	
 }
-float odd(){
+float impair(){
 	
 }
 
 float operation(float resultat[]){
-	if(1) return min();
-	if(1) return max();
-	if(1) return avg();
-	if(1) return sum();
-	return odd();
+	if(1) return minimal();
+	if(1) return maximal();
+	if(1) return moyenne();
+	if(1) return somme();
+	return impair();
 }
 
 void aFaire(char* argc,char* mode)
