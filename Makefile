@@ -8,7 +8,7 @@ Directeur.o : Directeur.c Directeur.h chefEquipe.o
 	gcc -c Directeur.c -o Directeur.o
 	
 compile : Directeur.o
-	gcc -o reduction constante.h Employe.o chefEquipe.o Directeur.o
+	gcc -o reduction constante.h Employe.o chefEquipe.o Directeur.o -lpthread
 	
 run : compile
 	./reduction
