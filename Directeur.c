@@ -4,6 +4,25 @@
  *  m threads
  * */
  
+ int comparaison(char* operateur){
+	 if(strlen(operateur)!=3)
+		return 1;
+	
+	char* min="min";
+	char* max="max";
+	char* avg="avg";
+	char* sum="sum";
+	char* odd="odd";
+	
+	int i=0;
+	while(i<3){
+		if((operateur[i] != min[i]) && (operateur[i] != max[i]) && (operateur[i] != avg[i]) && (operateur[i] != sum[i]) && (operateur[i] != odd[i]))
+			return 1;
+		i++;
+	}
+	return 0;
+ }
+ 
  //Création de plusieurs processus fils ayant comme père Directeur
 pid_t creationChefEquipe(int n,int* f)
 {
@@ -18,6 +37,16 @@ pid_t creationChefEquipe(int n,int* f)
 	 return pid;
  }
  
+ void test(int status)
+ {
+	 if(status==VIDE)
+	 {
+		 perror("une des fichier est vide\n");
+		 exit(EXIT_FAILURE);
+	 }
+	 
+ }
+ 
 void attendreChefEquipe(int n,float max[n]) ///Seul le père appel cette fonction
 {
 	int i=0;
@@ -29,7 +58,7 @@ void attendreChefEquipe(int n,float max[n]) ///Seul le père appel cette fonctio
 		wait(&status);///Stocke le max de chaque fichier
 		if(!WIFEXITED(status))
 			printf("un processus ne s'est pas terminer correctement\n");
-			else printf("%d\n",WEXITSTATUS(status));
+			else test(WEXITSTATUS(status));
 		
 		i++;
 	}
@@ -50,11 +79,11 @@ int main(int argv, char** argc)
 	}
 	///Rentre même avec argc[1] == "min";
 	///Faire une fonction de comparaison de deux caractères.
-	/*if(!strcmp(argc[1],"min") && !strcmp(argc[1],"max") && !strcmp(argc[1],"avg") && !strcmp(argc[1],"sum") && !strcmp(argc[1],"odd"))
+	if(comparaison(argc[1]))
 	{
-		perror("ERREUR : le code opération n'est pas valide\n");
+		perror("ERREUR : le code opérateur n'est pas valide\n");
 		exit(EXIT_FAILURE);
-	}*/
+	}
 	
 	int* f=malloc(sizeof(int));
 	
