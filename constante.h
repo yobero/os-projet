@@ -16,4 +16,12 @@
 #include <string.h>
 
 //constante
-#define VIDE 2 //si un fichier est vide
+	///ERREUR
+		#define VIDE 2 //si un fichier est vide
+
+	///operateur
+		#define MIN 1
+		#define MAX 2
+		#define AVG 3
+		#define SUM 4
+		#define ODD 5

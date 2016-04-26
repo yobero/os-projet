@@ -33,7 +33,7 @@ float operation(float resultat[]){
 	return impair();
 }
 
-void aFaire(char* argc,char* mode)
+void aFaire(char* argc,int code)
 {
 	int fichier = open(argc,LECTURE);
 	char* tbuf=malloc(sizeof(char));
@@ -62,6 +62,10 @@ void aFaire(char* argc,char* mode)
 	//Création des threads
 	
 	int i=0;
+	DONNEE f;
+	f.fichier = fichier;
+	f.nombre = nombre/nbthread; // nombre de nombre à lire
+	pthread_t thread[nbthread];
 	float resultat[nbthread];//stocker les resulstat pour chaques threads
 	while(i<nbthread) {
 		

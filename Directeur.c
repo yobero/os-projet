@@ -4,7 +4,7 @@
  *  m threads
  * */
  
- int comparaison(char* operateur){
+ /*int comparaison(char* operateur){
 	 if(strlen(operateur)!=3)
 		return 1;
 	
@@ -20,6 +20,62 @@
 			return 1;
 		i++;
 	}
+	return 0;
+ }*/
+ 
+ int comparaison(char*operateur){
+	 if(strlen(operateur)!=3)
+		return 0;
+		
+	char* min="min";
+	char* max="max";
+	char* avg="avg";
+	char* sum="sum";
+	char* odd="odd";
+	
+	int i=0;
+	while(i<3){//comparaison pour min
+		if(operateur[i] != min[i])
+			break;
+		i++;
+	}
+	if(i==3)
+		return MIN;
+		
+	i=0;
+	while(i<3){//max
+		if(operateur[i]!=max[i])
+			break;
+		i++;
+	}
+	if(i==3)
+		return MAX;
+		
+	 i=0;
+	 while(i<3){//avg
+		 if(operateur[i]!=avg[i])
+			break;
+		 i++;
+	 }
+	 if(i==3)
+		return AVG;
+		
+	while(i<3){//sum
+		if(operateur[i]!=sum[i])
+			break;
+		i++;
+	}
+	if(i==3)
+		return SUM;
+		
+	while(i<3){//sum
+		if(operateur[i]!=odd[i])
+			break;
+		i++;
+	}
+	if(i==3)
+		return ODD;
+	
 	return 0;
  }
  
@@ -79,7 +135,8 @@ int main(int argv, char** argc)
 	}
 	///Rentre même avec argc[1] == "min";
 	///Faire une fonction de comparaison de deux caractères.
-	if(comparaison(argc[1]))
+	int code=comparaison(argc[1]);
+	if(!code)
 	{
 		perror("ERREUR : le code opérateur n'est pas valide\n");
 		exit(EXIT_FAILURE);
@@ -94,7 +151,7 @@ int main(int argv, char** argc)
 	//Attribution des fichiers pour les processus (seul les processus fils font cette étape)
 	///Utilisation du exit pour arrêter les processus fils
 	if(pid==0)///Si VRAI alors on est dans un processus fils
-		aFaire(argc[*f],argc[1]);
+		aFaire(argc[*f],code);
 	free(f);
 	
 	//Attente des resultats des processus fils

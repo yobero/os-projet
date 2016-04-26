@@ -3,4 +3,4 @@
 float operation(float resultat[]);
 
 //Fonction "main" pour le processus chefEquipe
-void aFaire(char* argc,char* mode);
+void aFaire(char* argc,int code);
