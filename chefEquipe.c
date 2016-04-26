@@ -41,13 +41,27 @@ void aFaire(char* argc,int code)
 	DONNEE* f;
 	f->fichier = fichier;
 	f->nombre = nombre/nbthread; // nombre de nombre à lire
+	f->first=1;
+	
+	/*{//Bloc pour initialiser la varibale min avec la premier nombre
+		read(f->fichier,tbuf,1);
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+			f->valeur=atof(buf);
+			read(f->fichier,tbuf,1);
+		free(buf);
+		free(tbuf);
+	}//*tbuf premier chiffre du deuxième nombre ==> ici*/
+	
 	pthread_t thread[nbthread];
 	
 	///création des threads
 	while(i<nbthread) {
 		if(code==1)
 			pthread_create(&thread[i],NULL,Min,f);
-			if(code==2);
 		
 		i++;
 	}
@@ -61,5 +75,5 @@ void aFaire(char* argc,int code)
 	}
 	
 	close(fichier);
-	exit(EXIT_SUCCESS);
+	exit(f->valeur);
 }

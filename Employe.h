@@ -3,6 +3,7 @@
 typedef struct donnee{
 	int fichier;
 	int nombre;
+	int first;
 	float valeur;
 }DONNEE;
 

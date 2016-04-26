@@ -5,6 +5,7 @@
 typedef struct donnee{
 	int fichier;
 	int nombre;
+	int first;
 	float valeur;
 }DONNEE;
 
@@ -13,12 +14,13 @@ pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER;
 void* Min(void* arg){
 	DONNEE* f = (DONNEE*)arg;
 	char* tbuf = malloc(sizeof(char));
-	int i=0;
 	
 	pthread_mutex_lock(&mutex);
+	int i=0;
 	
 	read(f->fichier,tbuf,1);
 	
+	if(f->first)
 	{//Bloc pour initialiser la varibale min
 		char* buf = (char*)malloc(sizeof(char));
 		while(*tbuf!='\n'){
@@ -28,9 +30,13 @@ void* Min(void* arg){
 			f->valeur=atof(buf);
 		read(f->fichier,tbuf,1);
 		free(buf);
+		
+		i=1;
+		
+		f->first=0;
 	}
 	
-	while(i<f->nombre-1)
+	while(i<f->nombre && *tbuf!='\0')
 	{
 		char* buf = (char*)malloc(sizeof(char));
 		while(*tbuf!='\n' && *tbuf!='\0'){

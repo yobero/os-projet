@@ -98,19 +98,19 @@ pid_t creationChefEquipe(int n,int* f)
 	 if(status==VIDE)
 	 {
 		 perror("un des fichier est vide\n");
-		 exit(EXIT_FAILURE);
+		// exit(EXIT_FAILURE);
 	 }
 	 if(status==NEGATIF)
 	 {
 		 perror("L'indice d'un des fichier est négatif\n");
-		 exit(EXIT_FAILURE);
+		// exit(EXIT_FAILURE);
 	 }
 	 if(status==NEUTRE)
 	 {
 		 perror("L'indice d'un des fichier est null\n");
-		 exit(EXIT_FAILURE);
+		 //exit(EXIT_FAILURE);
 	 }
-	 
+	 printf("%d\n",status);
  }
  
 void attendreChefEquipe(int n,float max[n]) ///Seul le père appel cette fonction
