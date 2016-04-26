@@ -54,6 +54,10 @@ void aFaire(char* argc,int code)
 		read(fichier,tbuf,1);
 	}
 	int nombre=atoi(buf);
+	if(nombre<0)
+		exit(NEGATIF);
+	if(nombre==0)
+		exit(NEUTRE);
 	
 	int nbthread=1;
 	while(nombre/nbthread >100)
@@ -62,13 +66,24 @@ void aFaire(char* argc,int code)
 	//Création des threads
 	
 	int i=0;
-	DONNEE f;
-	f.fichier = fichier;
-	f.nombre = nombre/nbthread; // nombre de nombre à lire
+	DONNEE* f;
+	f->fichier = fichier;
+	f->nombre = nombre/nbthread; // nombre de nombre à lire
 	pthread_t thread[nbthread];
-	float resultat[nbthread];//stocker les resulstat pour chaques threads
+	
+	///création des threads
 	while(i<nbthread) {
+		if(code==1)
+			pthread_create(&thread[i],NULL,Min,f);
 		
+		i++;
+	}
+	
+	///recupération des valeurs
+	i=0;
+	while(i<nbthread)
+	{
+		pthread_join(thread[i],NULL);
 		i++;
 	}
 	

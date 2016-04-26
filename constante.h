@@ -18,6 +18,8 @@
 //constante
 	///ERREUR
 		#define VIDE 2 //si un fichier est vide
+		#define NEGATIF 3 //le premier nombre du fichier est négatif
+		#define NEUTRE 4 //Le premier nombre vaut 0
 
 	///operateur
 		#define MIN 1
