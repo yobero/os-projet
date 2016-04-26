@@ -5,34 +5,6 @@
 
 //Fonction "main" pour les processus chefEquipe
 ///La variable mode n'est pas encore apliquer dans la fonction
-
-float minimal(){
-	
-}
-
-float maximal(){
-	
-}
-
-float moyenne(){
-	
-}
-
-float somme(){
-	
-}
-float impair(){
-	
-}
-
-float operation(float resultat[]){
-	if(1) return minimal();
-	if(1) return maximal();
-	if(1) return moyenne();
-	if(1) return somme();
-	return impair();
-}
-
 void aFaire(char* argc,int code)
 {
 	int fichier = open(argc,LECTURE);
@@ -75,6 +47,7 @@ void aFaire(char* argc,int code)
 	while(i<nbthread) {
 		if(code==1)
 			pthread_create(&thread[i],NULL,Min,f);
+			if(code==2);
 		
 		i++;
 	}
