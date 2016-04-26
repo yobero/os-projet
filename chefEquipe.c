@@ -5,6 +5,34 @@
 
 //Fonction "main" pour les processus chefEquipe
 ///La variable mode n'est pas encore apliquer dans la fonction
+
+float min(){
+	
+}
+
+float max(){
+	
+}
+
+float avg(){
+	
+}
+
+float sum(){
+	
+}
+float odd(){
+	
+}
+
+float operation(float resultat[]){
+	if(1) return min();
+	if(1) return max();
+	if(1) return avg();
+	if(1) return sum();
+	return odd();
+}
+
 void aFaire(char* argc,char* mode)
 {
 	int fichier = open(argc,LECTURE);
@@ -34,6 +62,7 @@ void aFaire(char* argc,char* mode)
 	//Création des threads
 	
 	int i=0;
+	float resultat[nbthread];//stocker les resulstat pour chaques threads
 	while(i<nbthread) {
 		
 		i++;
