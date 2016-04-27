@@ -93,7 +93,7 @@ pid_t creationChefEquipe(int n,int* f)
 	 }
  }
  
-void attendreChefEquipe(int n,float resultat[n]) ///Seul le père appel cette fonction
+void attendreChefEquipe(int n,int tab[n][2]) ///Seul le père appel cette fonction
 {
 	int i=0;
 	
@@ -112,6 +112,14 @@ void attendreChefEquipe(int n,float resultat[n]) ///Seul le père appel cette fo
 				resultat[i]=atof(buf);
 				close(tube);
 				free(buf);*/
+				
+				/*char* val=(char*)malloc(sizeof(char));
+				float valeur;
+				read(tab[0][0],val,NB);
+				valeur=atof(val);
+				printf("La valeur est %f\n",valeur);
+				close(tab[0][0]);
+				free(val);*/
 			}
 		
 		i++;
@@ -144,6 +152,16 @@ int main(int argv, char** argc)
 	mkfifo("tube",0640);//communication entre processus
 	
 	int* f=malloc(sizeof(int)); //Permet l'attribution des fichiers
+	int tab[argv-2][2];
+	
+	///Création des pipes
+	{
+		int a=0;
+		while (a<argv-2){
+			pipe(tab[a]);
+			a++;
+		}
+	}
 	
 	//création de processus chefEquipe (1 processus <==> 1 fichier)
 	pid_t pid;
@@ -152,13 +170,13 @@ int main(int argv, char** argc)
 	//Attribution des fichiers pour les processus (seul les processus fils font cette étape)
 	///Utilisation du exit pour arrêter les processus fils
 	if(pid==0)///Si VRAI alors on est dans un processus fils
-		aFaire(argc[*f],code);
+		aFaire(argc[*f],code,argv-2,tab,*f-1);
 	free(f);
 	
 	//Attente des resultats des processus fils
 	if(pid) {
 		float resultat[argv-2]; ///variable pour stocker les max de chaque fichier
-		attendreChefEquipe(argv-2,resultat);
+		attendreChefEquipe(argv-2,tab);
 	}
 	
 	return EXIT_SUCCESS;

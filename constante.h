@@ -32,3 +32,5 @@
 		#define LECTURE O_RDONLY
 		#define ECRITURE O_WRONLY
 		#define LE O_RDWR //Lecteur et Ecriture
+
+		#define NB 10 //pour la convertion float en chaine de caractère

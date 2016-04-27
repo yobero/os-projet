@@ -1,10 +1,15 @@
 #include "Employe.h"
 
-#define NB 10 //pour la convertion float en chaine de caractère
+float minimal(float a,float b){
+	if(a>b)
+		return b;
+	else
+		return a;
+}
 
 //Fonction "main" pour les processus chefEquipe
 ///La variable mode n'est pas encore apliquer dans la fonction
-void aFaire(char* argc,int code)
+void aFaire(char* argc,int code,int m,int tab[m][2],int position)
 {
 	int fichier = open(argc,LECTURE);
 	char* tbuf=malloc(sizeof(char));
@@ -69,6 +74,39 @@ void aFaire(char* argc,int code)
 	free(s);
 	close(tube);*/
 	
+	/*if(position==m)
+	{
+		
+		int a=0;
+		float valeur=f->valeur; //initialisation de la valeur
+		char* c=(char*)malloc(sizeof(char));
+		
+		close(tab[position][1]);//A SUPPRIMER
+		close(tab[position][0]);
+		
+		while(a<m-1){
+			char* z =(char*)malloc(sizeof(char));
+			read(tab[a][0],z,NB);
+			if(code==1)
+				valeur=minimal(valeur,atof(z));
+			//Mettre les autres fonction
+			close(tab[a][0]);
+			free(z);
+			a++;
+		}
+		gcvt(valeur,'F',c);
+		write(tab[0][1],c,NB);
+		close(tab[0][1]);
+		free(c);
+	}
+	else{
+		char* s=(char*)malloc(sizeof(char));
+		gcvt(f->valeur,'F',s);
+		write(tab[position][1],s,NB);
+		close(tab[position][1]);
+		free(s);
+	}
+	*/
 	close(fichier);
 	exit(EXIT_SUCCESS);
 }
