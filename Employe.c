@@ -7,15 +7,16 @@ typedef struct donnee{
 	int nombre;
 	int first;
 	float valeur;
+	pthread_mutex_t mutex;
 }DONNEE;
 
-pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER;
+//pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER;
 
 void* Min(void* arg){
 	DONNEE* f = (DONNEE*)arg;
 	char* tbuf = malloc(sizeof(char));
 	
-	pthread_mutex_lock(&mutex);
+	pthread_mutex_lock(&f->mutex);
 	int i=0;
 	
 	read(f->fichier,tbuf,1);
@@ -49,7 +50,7 @@ void* Min(void* arg){
 		free(buf);
 		i++;
 	}
-	pthread_mutex_unlock(&mutex);
+	pthread_mutex_unlock(&f->mutex);
 	return NULL;
 	
 }

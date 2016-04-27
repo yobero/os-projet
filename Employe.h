@@ -5,6 +5,7 @@ typedef struct donnee{
 	int nombre;
 	int first;
 	float valeur;
+	pthread_mutex_t mutex;
 }DONNEE;
 
 void* Min(void* arg);

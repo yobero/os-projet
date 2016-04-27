@@ -42,6 +42,7 @@ void aFaire(char* argc,int code)
 	f->fichier = fichier;
 	f->nombre = nombre/nbthread; // nombre de nombre à lire
 	f->first=1;
+	pthread_mutex_init(&f->mutex,NULL);
 	
 	
 	pthread_t thread[nbthread];
