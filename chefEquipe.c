@@ -1,7 +1,6 @@
 #include "Employe.h"
 
-//Constante
-#define LECTURE O_RDONLY
+#define NB 10 //pour la convertion float en chaine de caractère
 
 //Fonction "main" pour les processus chefEquipe
 ///La variable mode n'est pas encore apliquer dans la fonction
@@ -11,7 +10,7 @@ void aFaire(char* argc,int code)
 	char* tbuf=malloc(sizeof(char));
 	
 	int t=read(fichier,tbuf,1);
-	if(t==0)
+	if(t==0)//le fichier est vide
 	{
 		free(tbuf);
 		close(fichier);
@@ -20,6 +19,7 @@ void aFaire(char* argc,int code)
 	
 	char* buf=(char*)malloc(sizeof(char));
 	
+	///Recupération du premier nombre du fichier
 	while(*tbuf != '\n')
 	{
 		buf=strcat(buf,tbuf);
@@ -62,6 +62,12 @@ void aFaire(char* argc,int code)
 		pthread_join(thread[i],NULL);
 		i++;
 	}
+	
+	/*int tube = open("tube",ECRITURE);
+	char* s = (char*)malloc(sizeof(char));
+	write(tube,gcvt(f->valeur,'F',s),NB);
+	free(s);
+	close(tube);*/
 	
 	close(fichier);
 	exit(EXIT_SUCCESS);

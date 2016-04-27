@@ -93,7 +93,7 @@ pid_t creationChefEquipe(int n,int* f)
 	 }
  }
  
-void attendreChefEquipe(int n,float max[n]) ///Seul le père appel cette fonction
+void attendreChefEquipe(int n,float resultat[n]) ///Seul le père appel cette fonction
 {
 	int i=0;
 	
@@ -104,7 +104,15 @@ void attendreChefEquipe(int n,float max[n]) ///Seul le père appel cette fonctio
 		wait(&status);///Stocke le max de chaque fichier
 		if(!WIFEXITED(status))
 			printf("un processus ne s'est pas terminer correctement\n");
-			else test(WEXITSTATUS(status));
+			else{
+				test(WEXITSTATUS(status));
+				/*int tube=open("tube",LECTURE);
+				char* buf=(char*)malloc(sizeof(char));
+				read(tube,buf,10);
+				resultat[i]=atof(buf);
+				close(tube);
+				free(buf);*/
+			}
 		
 		i++;
 	}
@@ -126,13 +134,16 @@ int main(int argv, char** argc)
 	///Rentre même avec argc[1] == "min";
 	///Faire une fonction de comparaison de deux caractères.
 	int code=comparaison(argc[1]);
+	
 	if(!code)
 	{
 		perror("ERREUR : le code opérateur n'est pas valide\n");
 		exit(EXIT_FAILURE);
 	}
 	
-	int* f=malloc(sizeof(int));
+	mkfifo("tube",0640);//communication entre processus
+	
+	int* f=malloc(sizeof(int)); //Permet l'attribution des fichiers
 	
 	//création de processus chefEquipe (1 processus <==> 1 fichier)
 	pid_t pid;
@@ -146,8 +157,8 @@ int main(int argv, char** argc)
 	
 	//Attente des resultats des processus fils
 	if(pid) {
-		float max[argv-2]; ///variable pour stocker les max de chaque fichier
-		attendreChefEquipe(argv-2,max);
+		float resultat[argv-2]; ///variable pour stocker les max de chaque fichier
+		attendreChefEquipe(argv-2,resultat);
 	}
 	
 	return EXIT_SUCCESS;

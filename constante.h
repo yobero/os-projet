@@ -27,3 +27,8 @@
 		#define AVG 3
 		#define SUM 4
 		#define ODD 5
+		
+	///Mode d'ouverture
+		#define LECTURE O_RDONLY
+		#define ECRITURE O_WRONLY
+		#define LE O_RDWR //Lecteur et Ecriture
