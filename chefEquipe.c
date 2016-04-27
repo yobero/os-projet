@@ -108,5 +108,5 @@ void aFaire(char* argc,int code,int m,int tab[m][2],int position)
 	}
 	*/
 	close(fichier);
-	exit(EXIT_SUCCESS);
+	exit(f->valeur);
 }

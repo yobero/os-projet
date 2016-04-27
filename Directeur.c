@@ -91,6 +91,7 @@ pid_t creationChefEquipe(int n,int* f)
 		 perror("L'indice d'un des fichier est null\n");
 		 exit(EXIT_FAILURE);
 	 }
+	 printf("%d\n",status);
  }
  
 void attendreChefEquipe(int n,int tab[n][2]) ///Seul le père appel cette fonction
