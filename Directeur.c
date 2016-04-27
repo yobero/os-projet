@@ -4,25 +4,6 @@
  *  m threads
  * */
  
- /*int comparaison(char* operateur){
-	 if(strlen(operateur)!=3)
-		return 1;
-	
-	char* min="min";
-	char* max="max";
-	char* avg="avg";
-	char* sum="sum";
-	char* odd="odd";
-	
-	int i=0;
-	while(i<3){
-		if((operateur[i] != min[i]) && (operateur[i] != max[i]) && (operateur[i] != avg[i]) && (operateur[i] != sum[i]) && (operateur[i] != odd[i]))
-			return 1;
-		i++;
-	}
-	return 0;
- }*/
- 
  int comparaison(char*operateur){
 	 if(strlen(operateur)!=3)
 		return 0;
