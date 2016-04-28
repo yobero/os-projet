@@ -91,7 +91,7 @@ pid_t creationChefEquipe(int n,int* f)
 		 perror("L'indice d'un des fichier est null\n");
 		 exit(EXIT_FAILURE);
 	 }
-	 printf("%d\n",status);
+	 printf("exit = %d\n",status);
  }
  
 void attendreChefEquipe(int n,int tab[n][2]) ///Seul le père appel cette fonction
@@ -106,25 +106,16 @@ void attendreChefEquipe(int n,int tab[n][2]) ///Seul le père appel cette foncti
 		if(!WIFEXITED(status))
 			printf("un processus ne s'est pas terminer correctement\n");
 			else{
-				test(WEXITSTATUS(status));
-				/*int tube=open("tube",LECTURE);
-				char* buf=(char*)malloc(sizeof(char));
-				read(tube,buf,10);
-				resultat[i]=atof(buf);
-				close(tube);
-				free(buf);*/
-				
-				/*char* val=(char*)malloc(sizeof(char));
-				float valeur;
-				read(tab[0][0],val,NB);
-				valeur=atof(val);
-				printf("La valeur est %f\n",valeur);
-				close(tab[0][0]);
-				free(val);*/
+				test(WEXITSTATUS(status));///OK
 			}
 		
 		i++;
 	}
+	///Tous les processus fils sont terminés
+	char* buf=(char*)malloc(sizeof(char));
+	read(tab[n-1][0],buf,NB);
+	float valeur = atof(buf);
+	printf("La valeur est %f\n",valeur);
 }
 
 int main(int argv, char** argc)
@@ -150,19 +141,19 @@ int main(int argv, char** argc)
 		exit(EXIT_FAILURE);
 	}
 	
-	mkfifo("tube",0640);//communication entre processus
-	
-	int* f=malloc(sizeof(int)); //Permet l'attribution des fichiers
+	int* f=malloc(sizeof(int)); ///Permet l'attribution des fichiers
 	int tab[argv-2][2];
+	//int tab[2];//Temporaire
+	//pipe(tab);
 	
 	///Création des pipes
-	{
+	/*{
 		int a=0;
 		while (a<argv-2){
 			pipe(tab[a]);
 			a++;
 		}
-	}
+	}*/
 	
 	//création de processus chefEquipe (1 processus <==> 1 fichier)
 	pid_t pid;
@@ -171,7 +162,7 @@ int main(int argv, char** argc)
 	//Attribution des fichiers pour les processus (seul les processus fils font cette étape)
 	///Utilisation du exit pour arrêter les processus fils
 	if(pid==0)///Si VRAI alors on est dans un processus fils
-		aFaire(argc[*f],code,argv-2,tab,*f-1);
+		aFaire(argc[*f],code,argv-2,tab,*f-2);
 	free(f);
 	
 	//Attente des resultats des processus fils

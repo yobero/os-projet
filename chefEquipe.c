@@ -73,40 +73,41 @@ void aFaire(char* argc,int code,int m,int tab[m][2],int position)
 	write(tube,gcvt(f->valeur,'F',s),NB);
 	free(s);
 	close(tube);*/
+	int valeur;
 	
-	/*if(position==m)
-	{
-		
-		int a=0;
-		float valeur=f->valeur; //initialisation de la valeur
-		char* c=(char*)malloc(sizeof(char));
-		
-		close(tab[position][1]);//A SUPPRIMER
-		close(tab[position][0]);
-		
-		while(a<m-1){
-			char* z =(char*)malloc(sizeof(char));
-			read(tab[a][0],z,NB);
-			if(code==1)
-				valeur=minimal(valeur,atof(z));
-			//Mettre les autres fonction
-			close(tab[a][0]);
-			free(z);
-			a++;
-		}
-		gcvt(valeur,'F',c);
-		write(tab[0][1],c,NB);
-		close(tab[0][1]);
-		free(c);
+	if(position==0){//le premier processus créer
+		char* buf = (char*)malloc(sizeof(char));
+		gcvt(f->valeur,NB,buf);
+		write(tab[position][1],buf,NB);
+		close(tab[position][1]);
+		free(buf);
 	}
 	else{
-		char* s=(char*)malloc(sizeof(char));
-		gcvt(f->valeur,'F',s);
-		write(tab[position][1],s,NB);
+		char* buf = (char*)malloc(sizeof(char));
+		read(tab[position-1][0],buf,NB);
+		valeur=atof(buf);
+		if(code==1)
+			gcvt(minimal(f->valeur,valeur),NB,buf);
+		
+		write(tab[position][1],buf,NB);
+		close(tab[position-1][0]);
 		close(tab[position][1]);
-		free(s);
-	}
-	*/
+		
+		free(buf);
+	}//Le dernier close n'est pas fait ATTENTION
+	
+	///temporaire (pour 1 fichier)
+	/*char* c=(char*)malloc(sizeof(char));
+	gcvt(f->valeur,NB,c);
+	write(tab[1],c,NB);
+	close(tab[1]);
+	free(c);
+	
+	char* z=(char*)malloc(sizeof(char));
+	int e;
+	read(tab[0],z,NB);
+	e=atoi(z);*/
+	
 	close(fichier);
 	exit(f->valeur);
 }
