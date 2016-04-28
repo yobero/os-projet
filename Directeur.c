@@ -143,17 +143,15 @@ int main(int argv, char** argc)
 	
 	int* f=malloc(sizeof(int)); ///Permet l'attribution des fichiers
 	int tab[argv-2][2];
-	//int tab[2];//Temporaire
-	//pipe(tab);
 	
 	///Création des pipes
-	/*{
+	{
 		int a=0;
 		while (a<argv-2){
 			pipe(tab[a]);
 			a++;
 		}
-	}*/
+	}
 	
 	//création de processus chefEquipe (1 processus <==> 1 fichier)
 	pid_t pid;

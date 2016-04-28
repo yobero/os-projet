@@ -94,19 +94,7 @@ void aFaire(char* argc,int code,int m,int tab[m][2],int position)
 		close(tab[position][1]);
 		
 		free(buf);
-	}//Le dernier close n'est pas fait ATTENTION
-	
-	///temporaire (pour 1 fichier)
-	/*char* c=(char*)malloc(sizeof(char));
-	gcvt(f->valeur,NB,c);
-	write(tab[1],c,NB);
-	close(tab[1]);
-	free(c);
-	
-	char* z=(char*)malloc(sizeof(char));
-	int e;
-	read(tab[0],z,NB);
-	e=atoi(z);*/
+	}
 	
 	close(fichier);
 	exit(f->valeur);
