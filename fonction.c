@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "constante.h"
 
 
 
@@ -26,4 +25,25 @@ int modulof(float nombre)
 		return 1;
 	else
 		return 0;
+}
+
+float minimal(float a,float b){
+	if(a>b)
+		return b;
+	else
+		return a;
+}
+
+float maximal(float a,float b){
+	if(a>b)
+		return a;
+		else return b;
+}
+
+float moyenne(float a,float b){
+	return (a+b)/2;
+}
+
+float somme(float a,float b){
+	return a+b;
 }

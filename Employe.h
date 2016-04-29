@@ -1,4 +1,4 @@
-#include "constante.h"
+#include "fonction.h"
 
 typedef struct donnee{
 	int fichier;

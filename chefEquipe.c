@@ -1,26 +1,5 @@
 #include "Employe.h"
 
-float minimal(float a,float b){
-	if(a>b)
-		return b;
-	else
-		return a;
-}
-
-float maximal(float a,float b){
-	if(a>b)
-		return a;
-		else return b;
-}
-
-float moyenne(float a,float b){
-	return (a+b)/2;
-}
-
-float somme(float a,float b){
-	return a+b;
-}
-
 //Fonction "main" pour les processus chefEquipe
 ///La variable mode n'est pas encore apliquer dans la fonction
 void aFaire(char* argc,int code,int m,int tab[m][2],int position)
