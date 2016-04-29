@@ -7,6 +7,20 @@ float minimal(float a,float b){
 		return a;
 }
 
+float maximal(float a,float b){
+	if(a>b)
+		return a;
+		else return b;
+}
+
+float moyenne(float a,float b){
+	return (a+b)/2;
+}
+
+float somme(float a,float b){
+	return a+b;
+}
+
 //Fonction "main" pour les processus chefEquipe
 ///La variable mode n'est pas encore apliquer dans la fonction
 void aFaire(char* argc,int code,int m,int tab[m][2],int position)
@@ -55,7 +69,13 @@ void aFaire(char* argc,int code,int m,int tab[m][2],int position)
 	///création des threads
 	while(i<nbthread) {
 		if(code==1)
-			pthread_create(&thread[i],NULL,Min,f);
+			pthread_create(&thread[i],NULL,min,f);
+		if(code==2)
+			pthread_create(&thread[i],NULL,max,f);
+		if(code==3 || code==4)
+			pthread_create(&thread[i],NULL,sum,f);
+		if(code==5)
+			pthread_create(&thread[i],NULL,odd,f);
 		
 		i++;
 	}
@@ -68,15 +88,13 @@ void aFaire(char* argc,int code,int m,int tab[m][2],int position)
 		i++;
 	}
 	
-	/*int tube = open("tube",ECRITURE);
-	char* s = (char*)malloc(sizeof(char));
-	write(tube,gcvt(f->valeur,'F',s),NB);
-	free(s);
-	close(tube);*/
 	int valeur;
 	
 	if(position==0){//le premier processus créer
 		char* buf = (char*)malloc(sizeof(char));
+		if(code==3)
+			f->valeur=f->valeur/nombre;
+			
 		gcvt(f->valeur,NB,buf);
 		write(tab[position][1],buf,NB);
 		close(tab[position][1]);
@@ -88,6 +106,12 @@ void aFaire(char* argc,int code,int m,int tab[m][2],int position)
 		valeur=atof(buf);
 		if(code==1)
 			gcvt(minimal(f->valeur,valeur),NB,buf);
+		if(code==2)
+			gcvt(maximal(f->valeur,valeur),NB,buf);
+		if(code==3)
+			gcvt(moyenne((f->valeur/nombre),valeur),NB,buf);
+		if(code==4 || code==5)
+			gcvt(somme(f->valeur,valeur),NB,buf);
 		
 		write(tab[position][1],buf,NB);
 		close(tab[position-1][0]);
@@ -97,5 +121,5 @@ void aFaire(char* argc,int code,int m,int tab[m][2],int position)
 	}
 	
 	close(fichier);
-	exit(f->valeur);
+	exit(EXIT_SUCCESS);
 }

@@ -27,19 +27,3 @@ int modulof(float nombre)
 	else
 		return 0;
 }
-
-float maximum(float nombre1, float nombre2)
-{
-	if(nombre1 > nombre2)
-		return nombre1;
-	else
-		return nombre2;
-}
-
-float minimum(float nombre1, float nombre2)
-{
-	if(nombre1 < nombre2)
-		return nombre1;
-	else
-		return nombre2;
-}
