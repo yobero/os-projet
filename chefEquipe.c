@@ -2,7 +2,7 @@
 
 //Fonction "main" pour les processus chefEquipe
 ///La variable mode n'est pas encore apliquer dans la fonction
-void aFaire(char* argc,int code,int m,int tab[m][2],int position)
+void chefEquipe(char* argc,int code,int m,int tab[m][2],int position)
 {
 	int fichier = open(argc,LECTURE);
 	char* tbuf=malloc(sizeof(char));

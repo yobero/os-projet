@@ -111,10 +111,14 @@ void attendreChefEquipe(int n,int tab[n][2]) ///Seul le père appel cette foncti
 		i++;
 	}
 	///Tous les processus fils sont terminés
+	
 	char* buf=(char*)malloc(sizeof(char));
+	int resultat = open("resultat.txt",ECRITURE | CREATION);
 	read(tab[n-1][0],buf,NB);
+	write(resultat,buf,NB);
 	float valeur = atof(buf);
 	printf("La valeur est %f\n",valeur);
+	close(resultat);
 }
 
 int main(int argv, char** argc)
@@ -159,7 +163,7 @@ int main(int argv, char** argc)
 	//Attribution des fichiers pour les processus (seul les processus fils font cette étape)
 	///Utilisation du exit pour arrêter les processus fils
 	if(pid==0)///Si VRAI alors on est dans un processus fils
-		aFaire(argc[*f],code,argv-2,tab,*f-2);
+		chefEquipe(argc[*f],code,argv-2,tab,*f-2);
 	free(f);
 	
 	//Attente des resultats des processus fils
