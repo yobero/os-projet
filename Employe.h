@@ -8,4 +8,8 @@ typedef struct donnee{
 	pthread_mutex_t mutex;
 }DONNEE;
 
-void* Min(void* arg);
+void* min(void* arg);
+void* max(void* arg);
+void* avg(void* arg);
+void* sum(void* arg);
+void* odd(void* arg);
