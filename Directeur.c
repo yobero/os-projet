@@ -113,12 +113,9 @@ void attendreChefEquipe(int n,int tab[n][2]) ///Seul le père appel cette foncti
 	///Tous les processus fils sont terminés
 	
 	char* buf=(char*)malloc(sizeof(char));
-	int resultat = open("resultat.txt",ECRITURE | CREATION);
 	read(tab[n-1][0],buf,NB);
-	write(resultat,buf,NB);
 	float valeur = atof(buf);
 	printf("La valeur est %f\n",valeur);
-	close(resultat);
 }
 
 int main(int argv, char** argc)
