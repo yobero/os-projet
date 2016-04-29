@@ -1,4 +1,5 @@
 #include "constante.h"
+#include "fonction.c"
 
 //Utiliser atof(chaine) pour convertir une chaine de caractère (char* chaine) en flottant
 
@@ -10,7 +11,7 @@ typedef struct donnee{
 	pthread_mutex_t mutex;
 }DONNEE;
 
-//pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER;
 
 void* Min(void* arg){
 	DONNEE* f = (DONNEE*)arg;
@@ -54,3 +55,186 @@ void* Min(void* arg){
 	return NULL;
 	
 }
+
+void* Max(void* arg){
+	DONNEE* f = (DONNEE*)arg;
+	char* tbuf = malloc(sizeof(char));
+	
+	pthread_mutex_lock(&mutex);
+	int i=0;
+	
+	read(f->fichier,tbuf,1);
+	
+	if(f->first)
+	{//Bloc pour initialiser la varibale max
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+			f->valeur=atof(buf);
+		read(f->fichier,tbuf,1);
+		free(buf);
+		
+		i=1;
+		
+		f->first=0;
+	}
+	
+	while(i<f->nombre && *tbuf!='\0')
+	{
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n' && *tbuf!='\0'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+		if((f->valeur) < atof(buf))
+			f->valeur = atof(buf);
+		read(f->fichier,tbuf,1);
+		free(buf);
+		i++;
+	}
+	pthread_mutex_unlock(&mutex);
+	return NULL;
+	
+}
+
+void* Moyenne(void* arg){
+	DONNEE* f = (DONNEE*)arg;
+	char* tbuf = malloc(sizeof(char));
+	
+	pthread_mutex_lock(&mutex);
+	int i=0;
+	
+	read(f->fichier,tbuf,1);
+	
+	if(f->first)
+	{//Bloc pour initialiser la varibale
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+			f->valeur=atof(buf);
+		read(f->fichier,tbuf,1);
+		free(buf);
+		
+		i=1;
+		
+		f->first=0;
+	}
+	
+		while(i<f->nombre && *tbuf!='\0')
+	{
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n' && *tbuf!='\0'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+		f->valeur = f->valeur + atof(buf);
+		read(f->fichier,tbuf,1);
+		free(buf);
+		i++;
+	}
+	pthread_mutex_unlock(&mutex);
+	return NULL;
+
+}
+
+void* Medianne(void* arg){
+	DONNEE* f = (DONNEE*)arg;
+	char* tbuf = malloc(sizeof(char));
+	float maxou,minou;
+	
+	pthread_mutex_lock(&mutex);
+	int i=0;
+	
+	read(f->fichier,tbuf,1);
+	
+	if(f->first)
+	{//Bloc pour initialiser la varibale 
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+			f->valeur=atof(buf);
+		read(f->fichier,tbuf,1);
+		free(buf);
+		
+		i=1;
+		
+		f->first=0;
+	}
+	
+	while(i<f->nombre && *tbuf!='\0')
+	{
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n' && *tbuf!='\0'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+		maxou = maximum(f->valeur,atof(buf));
+		minou = minimum(f->valeur,atof(buf));
+		
+		f->valeur = (maxou + minou)/2;
+		
+		read(f->fichier,tbuf,1);
+		free(buf);
+		i++;
+	}
+	pthread_mutex_unlock(&mutex);
+	return NULL;
+
+}
+
+
+
+void* modulo(void* arg){
+	DONNEE* f = (DONNEE*)arg;
+	char* tbuf = malloc(sizeof(char));
+	int compteur = 0;
+	
+	pthread_mutex_lock(&mutex);
+	int i=0;
+	
+	read(f->fichier,tbuf,1);
+	
+	if(f->first)
+	{//Bloc pour initialiser la varibale
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+			f->valeur=atof(buf);
+		read(f->fichier,tbuf,1);
+		free(buf);
+		
+		i=1;
+		
+		f->first=0;
+	}
+	
+	while(i<f->nombre && *tbuf!='\0')
+	{
+		char* buf = (char*)malloc(sizeof(char));
+		while(*tbuf!='\n' && *tbuf!='\0'){
+			buf=strcat(buf,tbuf);
+			read(f->fichier,tbuf,1);
+		}
+		
+		compteur = compteur + modulof(f->valeur);
+		
+		
+		f->valeur = compteur;
+		read(f->fichier,tbuf,1);
+		free(buf);
+		i++;
+	}
+	pthread_mutex_unlock(&mutex);
+	return NULL;
+	
+}
+
+
