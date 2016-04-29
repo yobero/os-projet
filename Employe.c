@@ -13,7 +13,7 @@ typedef struct donnee{
 
 pthread_mutex_t mutex=PTHREAD_MUTEX_INITIALIZER;
 
-void* Min(void* arg){
+void* min(void* arg){
 	DONNEE* f = (DONNEE*)arg;
 	char* tbuf = malloc(sizeof(char));
 	
@@ -56,7 +56,7 @@ void* Min(void* arg){
 	
 }
 
-void* Max(void* arg){
+void* max(void* arg){
 	DONNEE* f = (DONNEE*)arg;
 	char* tbuf = malloc(sizeof(char));
 	
@@ -99,7 +99,7 @@ void* Max(void* arg){
 	
 }
 
-void* Moyenne(void* arg){
+void* avg(void* arg){
 	DONNEE* f = (DONNEE*)arg;
 	char* tbuf = malloc(sizeof(char));
 	
@@ -141,7 +141,7 @@ void* Moyenne(void* arg){
 
 }
 
-void* Medianne(void* arg){
+void* sum(void* arg){
 	DONNEE* f = (DONNEE*)arg;
 	char* tbuf = malloc(sizeof(char));
 	float maxou,minou;
@@ -190,7 +190,7 @@ void* Medianne(void* arg){
 
 
 
-void* modulo(void* arg){
+void* odd(void* arg){
 	DONNEE* f = (DONNEE*)arg;
 	char* tbuf = malloc(sizeof(char));
 	int compteur = 0;
